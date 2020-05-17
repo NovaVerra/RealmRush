@@ -24,6 +24,9 @@ public class CubeEditor : MonoBehaviour
 		SnapPos.z = Mathf.RoundToInt(transform.position.z / 10.0f) * GridSize;
 		transform.position = new Vector3(SnapPos.x, 0.0f, SnapPos.z);
 
-		TextMeshCoordinate.text = SnapPos.x / GridSize + ", " + SnapPos.z / GridSize;
+		string Coordinate = SnapPos.x / GridSize + ", " + SnapPos.z / GridSize;
+
+		TextMeshCoordinate.text = Coordinate;
+		gameObject.name = Coordinate;
 	}
 }
