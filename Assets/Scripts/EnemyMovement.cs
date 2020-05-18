@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] List<Block>	Path;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Start is called before the first frame update
+	void Start()
+	{
+		foreach (Block Coordinate in Path)
+		{
+			print(Coordinate);
+		}
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+		
+	}
 }
