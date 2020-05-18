@@ -7,12 +7,12 @@ public class Waypoint : MonoBehaviour
 	const int	GridSize = 10;
 	Vector2Int	GridPos;
 
-	public int	GetGridSize()
+	public int			GetGridSize()
 	{
 		return GridSize;
 	}
 
-	public Vector2	GetGridPos()
+	public Vector2Int	GetGridPos()
 	{
 		return new Vector2Int(
 			Mathf.RoundToInt(transform.position.x / 10.0f) * GridSize,
