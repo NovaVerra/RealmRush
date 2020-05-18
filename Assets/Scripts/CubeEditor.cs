@@ -4,13 +4,16 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 [SelectionBase]
+[RequireComponent(typeof(Waypoint))]
 public class CubeEditor : MonoBehaviour
 {
-	Vector3		SnapPos;
 	TextMesh	TextMeshCoordinate;
+	Waypoint	Waypoint;
 
-	[SerializeField][Range(1.0f, 20.0f)]
-	int		GridSize;
+	void	Awake()
+	{
+		Waypoint = GetComponent<Waypoint>();
+	}
 
 	void Start()
 	{
@@ -20,12 +23,24 @@ public class CubeEditor : MonoBehaviour
 	// Overwrites editors snap to grid setting
 	void Update()
 	{
-		SnapPos.x = Mathf.RoundToInt(transform.position.x / 10.0f) * GridSize;
-		SnapPos.z = Mathf.RoundToInt(transform.position.z / 10.0f) * GridSize;
-		transform.position = new Vector3(SnapPos.x, 0.0f, SnapPos.z);
+		SnapToGrid();
+		UpdateLabel();
+	}
 
-		string Coordinate = SnapPos.x / GridSize + ", " + SnapPos.z / GridSize;
+	void	SnapToGrid()
+	{
+		int GridSize = Waypoint.GetGridSize();
+		transform.position = new Vector3(
+			Waypoint.GetGridPos().x,
+			0.0f,
+			Waypoint.GetGridPos().y
+		);
+	}
 
+	void	UpdateLabel()
+	{
+		int GridSize = Waypoint.GetGridSize();
+		string Coordinate = Waypoint.GetGridPos().x / GridSize + ", " + Waypoint.GetGridPos().y / GridSize;
 		TextMeshCoordinate.text = Coordinate;
 		gameObject.name = Coordinate;
 	}
