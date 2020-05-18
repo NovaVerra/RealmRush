@@ -9,15 +9,18 @@ public class EnemyMovement : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		foreach (Waypoint Coordinate in Path)
-		{
-			print(Coordinate);
-		}
+		StartCoroutine(FollowPath());
 	}
 
-	// Update is called once per frame
-	void Update()
+	IEnumerator	FollowPath()
 	{
-		
+		print("Starting Patrol...");
+		foreach (Waypoint Coordinate in Path)
+		{
+			transform.position = Coordinate.transform.position;
+			print("Visiting block: " + Coordinate.name);
+			yield return new WaitForSeconds(1.0f);
+		}
+		print("Ending Patrol...");
 	}
 }
