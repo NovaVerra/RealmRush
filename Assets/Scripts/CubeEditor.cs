@@ -31,16 +31,16 @@ public class CubeEditor : MonoBehaviour
 	{
 		int GridSize = Waypoint.GetGridSize();
 		transform.position = new Vector3(
-			Waypoint.GetGridPos().x,
+			Waypoint.GetGridPos().x * GridSize,
 			0.0f,
-			Waypoint.GetGridPos().y
+			Waypoint.GetGridPos().y * GridSize
 		);
 	}
 
 	void	UpdateLabel()
 	{
 		int GridSize = Waypoint.GetGridSize();
-		string Coordinate = Waypoint.GetGridPos().x / GridSize + ", " + Waypoint.GetGridPos().y / GridSize;
+		string Coordinate = Waypoint.GetGridPos().x + ", " + Waypoint.GetGridPos().y;
 		TextMeshCoordinate.text = Coordinate;
 		gameObject.name = Coordinate;
 	}
