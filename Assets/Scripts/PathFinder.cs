@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class PathFinder : MonoBehaviour
 {
+	/** Game State */
 	Dictionary<Vector2Int, Waypoint> WorldGrid = new Dictionary<Vector2Int, Waypoint>();
+	[SerializeField]	Waypoint StartBlock, EndBlock;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		LoadBlocks();
+		StartBlock.SetTopColor(Color.yellow);
+		EndBlock.SetTopColor(Color.red);
 	}
 
 	void	LoadBlocks()
@@ -25,7 +29,6 @@ public class PathFinder : MonoBehaviour
 			else
 			{
 				WorldGrid.Add(Waypoint.GetGridPos(), Waypoint);
-				Waypoint.SetTopColor(Color.black);
 			}
 		}
 		print("Loaded " + WorldGrid.Count + " blocks.");
