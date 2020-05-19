@@ -17,8 +17,8 @@ public class PathFinder : MonoBehaviour
 		var Waypoints = FindObjectsOfType<Waypoint>();
 		foreach (Waypoint Waypoint in Waypoints)
 		{
-			bool b_IsOverlapping = WorldGrid.ContainsKey(Waypoint.GetGridPos());
-			if (b_IsOverlapping)
+			/** if there are duplicates */
+			if (WorldGrid.ContainsKey(Waypoint.GetGridPos()))
 			{
 				Debug.LogWarning("Overlapping grid: " + Waypoint.GetGridPos());
 			}
@@ -27,7 +27,7 @@ public class PathFinder : MonoBehaviour
 				WorldGrid.Add(Waypoint.GetGridPos(), Waypoint);
 			}
 		}
-		print(WorldGrid.Count);
+		print("Loaded " + WorldGrid.Count + " blocks.");
 	}
 
 	// Update is called once per frame
