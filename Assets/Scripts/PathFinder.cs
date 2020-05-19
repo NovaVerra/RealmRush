@@ -25,6 +25,7 @@ public class PathFinder : MonoBehaviour
 			else
 			{
 				WorldGrid.Add(Waypoint.GetGridPos(), Waypoint);
+				Waypoint.SetTopColor(Color.black);
 			}
 		}
 		print("Loaded " + WorldGrid.Count + " blocks.");
