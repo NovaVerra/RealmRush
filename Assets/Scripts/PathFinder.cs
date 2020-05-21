@@ -5,12 +5,13 @@ using UnityEngine;
 public class PathFinder : MonoBehaviour
 {
 	/** Game State */
-	bool	b_IsRunning = true	;
+	bool	b_IsRunning = true;
 
 	/** Game Config */
 	Dictionary<Vector2Int, Waypoint>	WorldGrid = new Dictionary<Vector2Int, Waypoint>();
 	Queue<Waypoint> 					Queue = new Queue<Waypoint>();
 	[SerializeField] Waypoint 			StartWaypoint, EndWaypoint;
+	Waypoint							SearchCenter;
 
 	Vector2Int[] Directions = {
 		Vector2Int.up,
@@ -19,13 +20,11 @@ public class PathFinder : MonoBehaviour
 		Vector2Int.left
 	};
 
-	// Start is called before the first frame update
+	/** Start is called before the first frame update */
 	void	Start()
 	{
 		LoadBlocks();
-		StartWaypoint.SetTopColor(Color.yellow);
-		EndWaypoint.SetTopColor(Color.red);
-		// ExploreNeighbours();
+		ColorStartEnd();
 		Pathfind();
 	}
 
@@ -44,27 +43,12 @@ public class PathFinder : MonoBehaviour
 				WorldGrid.Add(Waypoint.GetGridPos(), Waypoint);
 			}
 		}
-		// print("Loaded " + WorldGrid.Count + " blocks.");
 	}
 
-	void	ExploreNeighbours(Waypoint From)
+	void	ColorStartEnd()
 	{
-		foreach (Vector2Int Direction in Directions)
-		{
-			Vector2Int NeighbourCoordinate = From.GetGridPos() + Direction;
-			if (WorldGrid.ContainsKey(NeighbourCoordinate))
-			{
-				QueueNewNeighbours(NeighbourCoordinate);
-			}
-			// try
-			// {
-			// 	WorldGrid[NeighbourCoordinate].SetTopColor(Color.blue);
-			// }
-			// catch
-			// {
-				// ;
-			// }
-		}
+		StartWaypoint.SetTopColor(Color.yellow);
+		EndWaypoint.SetTopColor(Color.red);
 	}
 
 	void	Pathfind()
@@ -72,15 +56,26 @@ public class PathFinder : MonoBehaviour
 		Queue.Enqueue(StartWaypoint);
 		while (Queue.Count > 0 && b_IsRunning)
 		{
-			var SearchCenter = Queue.Dequeue();
-			print("Searching from: " + SearchCenter);
-			EndFound(SearchCenter);
-			ExploreNeighbours(SearchCenter);
+			SearchCenter = Queue.Dequeue();
+			EndFound();
+			ExploreNeighbours();
 			SearchCenter.b_IsExplored = true;
 		}
 	}
 
-	bool	EndFound(Waypoint SearchCenter)
+	void	ExploreNeighbours()
+	{
+		foreach (Vector2Int Direction in Directions)
+		{
+			Vector2Int NeighbourCoordinate = SearchCenter.GetGridPos() + Direction;
+			if (WorldGrid.ContainsKey(NeighbourCoordinate))
+			{
+				QueueNewNeighbours(NeighbourCoordinate);
+			}
+		}
+	}
+
+	bool	EndFound()
 	{
 		if (SearchCenter == EndWaypoint)
 		{
@@ -96,11 +91,10 @@ public class PathFinder : MonoBehaviour
 	void	QueueNewNeighbours(Vector2Int NeighbourCoordinate)
 	{
 		Waypoint Neighbour = WorldGrid[NeighbourCoordinate];
-		if (!Neighbour.b_IsExplored)
+		if (!Neighbour.b_IsExplored || Queue.Contains(Neighbour))
 		{
 			Queue.Enqueue(WorldGrid[NeighbourCoordinate]);
-			print("Queueing " + WorldGrid[NeighbourCoordinate]);
-			WorldGrid[NeighbourCoordinate].SetTopColor(Color.blue);
+			Neighbour.ExploredFrom = SearchCenter;
 		}
 	}
 }
