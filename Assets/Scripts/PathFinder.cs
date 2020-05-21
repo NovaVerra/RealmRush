@@ -5,7 +5,7 @@ using UnityEngine;
 public class PathFinder : MonoBehaviour
 {
 	/** Game State */
-	bool	b_IsRunning = true;
+	bool	b_IsRunning = true	;
 
 	/** Game Config */
 	Dictionary<Vector2Int, Waypoint>	WorldGrid = new Dictionary<Vector2Int, Waypoint>();
@@ -47,14 +47,14 @@ public class PathFinder : MonoBehaviour
 		// print("Loaded " + WorldGrid.Count + " blocks.");
 	}
 
-	void	ExploreNeighbours()
+	void	ExploreNeighbours(Waypoint From)
 	{
 		foreach (Vector2Int Direction in Directions)
 		{
-			Vector2Int NeighbourCoordinate = StartWaypoint.GetGridPos() + Direction;
+			Vector2Int NeighbourCoordinate = From.GetGridPos() + Direction;
 			if (WorldGrid.ContainsKey(NeighbourCoordinate))
 			{
-				WorldGrid[NeighbourCoordinate].SetTopColor(Color.blue);
+				QueueNewNeighbours(NeighbourCoordinate);
 			}
 			// try
 			// {
@@ -70,11 +70,13 @@ public class PathFinder : MonoBehaviour
 	void	Pathfind()
 	{
 		Queue.Enqueue(StartWaypoint);
-		while (Queue.Count > 0)
+		while (Queue.Count > 0 && b_IsRunning)
 		{
 			var SearchCenter = Queue.Dequeue();
 			print("Searching from: " + SearchCenter);
-			if (EndFound(SearchCenter)) { return ; }
+			EndFound(SearchCenter);
+			ExploreNeighbours(SearchCenter);
+			SearchCenter.b_IsExplored = true;
 		}
 	}
 
@@ -88,6 +90,17 @@ public class PathFinder : MonoBehaviour
 		else
 		{
 			return false;
+		}
+	}
+
+	void	QueueNewNeighbours(Vector2Int NeighbourCoordinate)
+	{
+		Waypoint Neighbour = WorldGrid[NeighbourCoordinate];
+		if (!Neighbour.b_IsExplored)
+		{
+			Queue.Enqueue(WorldGrid[NeighbourCoordinate]);
+			print("Queueing " + WorldGrid[NeighbourCoordinate]);
+			WorldGrid[NeighbourCoordinate].SetTopColor(Color.blue);
 		}
 	}
 }
