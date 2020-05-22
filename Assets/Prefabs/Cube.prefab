@@ -708,7 +708,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f6a0052fe844f50896702d0d97ad9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GridSize: 10
 --- !u!114 &6987299958566970808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,3 +720,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f8ba9d82d16f4da08b086a63338258a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  b_IsExplored: 0
+  ExploredFrom: {fileID: 0}
+  ExploredColor: {r: 0.16509432, g: 0.29590505, b: 1, a: 0}

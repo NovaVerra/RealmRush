@@ -12,6 +12,7 @@ public class PathFinder : MonoBehaviour
 	Queue<Waypoint> 					Queue = new Queue<Waypoint>();
 	[SerializeField] Waypoint 			StartWaypoint, EndWaypoint;
 	Waypoint							SearchCenter;
+	List<Waypoint>						Path = new List<Waypoint>();
 
 	Vector2Int[] Directions = {
 		Vector2Int.up,
@@ -20,17 +21,9 @@ public class PathFinder : MonoBehaviour
 		Vector2Int.left
 	};
 
-	/** Start is called before the first frame update */
-	void	Start()
-	{
-		LoadBlocks();
-		ColorStartEnd();
-		Pathfind();
-	}
-
 	void	LoadBlocks()
 	{
-		var Waypoints = FindObjectsOfType<Waypoint>();
+		Waypoint[] Waypoints = FindObjectsOfType<Waypoint>();
 		foreach (Waypoint Waypoint in Waypoints)
 		{
 			/** if there are duplicates */
@@ -51,7 +44,7 @@ public class PathFinder : MonoBehaviour
 		EndWaypoint.SetTopColor(Color.red);
 	}
 
-	void	Pathfind()
+	void	BFSearch()
 	{
 		Queue.Enqueue(StartWaypoint);
 		while (Queue.Count > 0 && b_IsRunning)
@@ -61,6 +54,19 @@ public class PathFinder : MonoBehaviour
 			ExploreNeighbours();
 			SearchCenter.b_IsExplored = true;
 		}
+	}
+
+	void	CreatePath()
+	{
+		Path.Add(EndWaypoint);
+		Waypoint Previous = EndWaypoint.ExploredFrom;
+		while (Previous != StartWaypoint)
+		{
+			Path.Add(Previous);
+			Previous = Previous.ExploredFrom;
+		}
+		Path.Add(StartWaypoint);
+		Path.Reverse();
 	}
 
 	void	ExploreNeighbours()
@@ -96,5 +102,24 @@ public class PathFinder : MonoBehaviour
 			Queue.Enqueue(WorldGrid[NeighbourCoordinate]);
 			Neighbour.ExploredFrom = SearchCenter;
 		}
+	}
+
+	public Waypoint	GetStartWaypoint()
+	{
+		return StartWaypoint;
+	}
+
+	public Waypoint	GetEndWaypoint()
+	{
+		return EndWaypoint;
+	}
+
+	public List<Waypoint> GetPath()
+	{
+		LoadBlocks();
+		ColorStartEnd();
+		BFSearch();
+		CreatePath();
+		return Path;
 	}
 }
