@@ -5,9 +5,9 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
 	const int				GridSize = 10;
+	Vector2Int				GridPos;
 	public bool				b_IsExplored = false;
 	public Waypoint			ExploredFrom;
-	Vector2Int				GridPos;
 	[SerializeField] Color	ExploredColor = Color.blue;
 
 	public int			GetGridSize()

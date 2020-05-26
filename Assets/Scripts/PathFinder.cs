@@ -8,11 +8,11 @@ public class PathFinder : MonoBehaviour
 	bool	b_IsRunning = true;
 
 	/** Game Config */
-	Dictionary<Vector2Int, Waypoint>	WorldGrid = new Dictionary<Vector2Int, Waypoint>();
-	Queue<Waypoint> 					Queue = new Queue<Waypoint>();
-	[SerializeField] Waypoint 			StartWaypoint, EndWaypoint;
 	Waypoint							SearchCenter;
 	List<Waypoint>						Path = new List<Waypoint>();
+	Queue<Waypoint> 					Queue = new Queue<Waypoint>();
+	[SerializeField] Waypoint 			StartWaypoint, EndWaypoint;
+	Dictionary<Vector2Int, Waypoint>	WorldGrid = new Dictionary<Vector2Int, Waypoint>();
 
 	Vector2Int[] Directions = {
 		Vector2Int.up,
