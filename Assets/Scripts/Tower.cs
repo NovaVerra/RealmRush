@@ -12,7 +12,7 @@ public class Tower : MonoBehaviour
 	// Update is called once per frame
 	void	Update()
 	{
-		if (CalculateDistance() < 20)
+		if (CalculateDistance() < Range)
 		{
 			TurretTop.LookAt(Enemy);
 			var EmissionModule = Bullet.GetComponent<ParticleSystem>().emission;
