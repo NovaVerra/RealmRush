@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
+	/** Parameter */
 	[SerializeField] Transform	TurretTop;
-	[SerializeField] Transform	Enemy;
 	[SerializeField] float		Range = 20.0f;
 	[SerializeField] GameObject	Bullet;
+
+	/** State */
+	Transform	Enemy;
 
 	// Update is called once per frame
 	void	Update()
 	{
+		SetTargetEnemy();
 		if (Enemy)
 		{
 			if (CalculateDistance() < Range)
@@ -40,5 +44,31 @@ public class Tower : MonoBehaviour
 	{
 		var EmissionModule = Bullet.GetComponent<ParticleSystem>().emission;
 		EmissionModule.enabled = b_IsActive;
+	}
+
+	void	SetTargetEnemy()
+	{
+		var SceneEnemies = FindObjectsOfType<Enemy>();
+		if (SceneEnemies.Length == 0) { return; }
+		Transform ClosestEnemy = SceneEnemies[0].transform;
+		foreach (Enemy TestEnemy in SceneEnemies)
+		{
+			ClosestEnemy = GetClosestEnemy(ClosestEnemy, TestEnemy.transform);
+		}
+		Enemy = ClosestEnemy;
+	}
+
+	Transform	GetClosestEnemy(Transform Transform_A, Transform Transform_B)
+	{
+		var DistToA = Vector3.Distance(gameObject.transform.position, Transform_A.position);
+		var DistToB = Vector3.Distance(gameObject.transform.position, Transform_B.position);
+		if (DistToA < DistToB)
+		{
+			return Transform_A;
+		}
+		else
+		{
+			return Transform_B;
+		}
 	}
 }

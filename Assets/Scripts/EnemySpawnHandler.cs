@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemySpawnHandler : MonoBehaviour
 {
-	[SerializeField] GameObject	EnemyPrefab;
-	[SerializeField] Transform	Parent;
-	[SerializeField] float		SpawnRate = 1.0f;
+	/** Parameters */
+	[SerializeField] EnemyMovement	EnemyPrefab;
+	[SerializeField] Transform		Parent;
+	[Range(2.0f, 10.0f)]
+	[SerializeField] float			SpawnRate = 4.0f;
 
 	// Start is called before the first frame update
 	void Start()
@@ -18,7 +20,7 @@ public class EnemySpawnHandler : MonoBehaviour
 	{
 		while (true)
 		{
-			GameObject EnemyInstance = Instantiate(EnemyPrefab);
+			EnemyMovement EnemyInstance = Instantiate(EnemyPrefab, transform.position, Quaternion.identity);
 			EnemyInstance.transform.parent = Parent;
 			yield return new WaitForSeconds(SpawnRate);
 		}
