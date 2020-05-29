@@ -7,6 +7,7 @@ public class Waypoint : MonoBehaviour
 	const int				GridSize = 10;
 	Vector2Int				GridPos;
 	public bool				b_IsExplored = false;
+	public bool				b_IsPlaceable = true;
 	public Waypoint			ExploredFrom;
 	[SerializeField] Color	ExploredColor = Color.blue;
 
@@ -31,6 +32,16 @@ public class Waypoint : MonoBehaviour
 
 	void	OnMouseOver()
 	{
-		print("Mouse is over: " + gameObject.name);
+		if (Input.GetMouseButtonDown(0))
+		{
+			if (b_IsPlaceable)
+			{
+				print("Placing turret on: " + gameObject.name);
+			}
+			else
+			{
+				print("Cannot place turret here");
+			}
+		}
 	}
 }
