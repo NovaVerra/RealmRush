@@ -21,6 +21,5 @@ public class Enemy : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-		print("HP Remaining: " + HitPoint);
 	}
 }

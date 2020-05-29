@@ -12,16 +12,21 @@ public class Tower : MonoBehaviour
 	// Update is called once per frame
 	void	Update()
 	{
-		if (CalculateDistance() < Range)
+		if (Enemy)
 		{
-			TurretTop.LookAt(Enemy);
-			var EmissionModule = Bullet.GetComponent<ParticleSystem>().emission;
-			EmissionModule.enabled = true;
+			if (CalculateDistance() < Range)
+			{
+				TurretTop.LookAt(Enemy);
+				Shoot(true);
+			}
+			else
+			{
+				Shoot(false);
+			}
 		}
 		else
 		{
-			var EmissionModule = Bullet.GetComponent<ParticleSystem>().emission;
-			EmissionModule.enabled = false;
+			Shoot(false);
 		}
 	}
 
@@ -29,5 +34,11 @@ public class Tower : MonoBehaviour
 	{
 		float Distance = Vector3.Distance(TurretTop.position, Enemy.position);
 		return Distance;
+	}
+
+	void	Shoot(bool b_IsActive)
+	{
+		var EmissionModule = Bullet.GetComponent<ParticleSystem>().emission;
+		EmissionModule.enabled = b_IsActive;
 	}
 }

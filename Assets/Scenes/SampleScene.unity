@@ -4245,6 +4245,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 712542290703963521, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 712542290703963521, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+    - target: {fileID: 4164646985444477536, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
+        type: 3}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9cb88c359341e5bd4cff1599bf6e5, type: 3}
 --- !u!1001 &7570818906352873492
