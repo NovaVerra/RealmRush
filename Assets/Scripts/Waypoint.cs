@@ -10,7 +10,6 @@ public class Waypoint : MonoBehaviour
 	public bool					b_IsPlaceable = true;
 	public Waypoint				ExploredFrom;
 	[SerializeField] Color		ExploredColor = Color.blue;
-	[SerializeField] GameObject	TowerPrefab;
 
 	public int			GetGridSize()
 	{
@@ -37,7 +36,7 @@ public class Waypoint : MonoBehaviour
 		{
 			if (b_IsPlaceable)
 			{
-				Instantiate(TowerPrefab, transform.position, Quaternion.identity);
+				FindObjectOfType<TowerFactory>().SpawnTower(this);
 				b_IsPlaceable = false;
 			}
 			else
