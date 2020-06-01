@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-	const int				GridSize = 10;
-	Vector2Int				GridPos;
-	public bool				b_IsExplored = false;
-	public bool				b_IsPlaceable = true;
-	public Waypoint			ExploredFrom;
-	[SerializeField] Color	ExploredColor = Color.blue;
+	const int					GridSize = 10;
+	Vector2Int					GridPos;
+	public bool					b_IsExplored = false;
+	public bool					b_IsPlaceable = true;
+	public Waypoint				ExploredFrom;
+	[SerializeField] Color		ExploredColor = Color.blue;
+	[SerializeField] GameObject	TowerPrefab;
 
 	public int			GetGridSize()
 	{
@@ -36,7 +37,8 @@ public class Waypoint : MonoBehaviour
 		{
 			if (b_IsPlaceable)
 			{
-				print("Placing turret on: " + gameObject.name);
+				Instantiate(TowerPrefab, transform.position, Quaternion.identity);
+				b_IsPlaceable = false;
 			}
 			else
 			{

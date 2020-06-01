@@ -4121,12 +4121,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1601327770}
     m_Modifications:
-    - target: {fileID: 322525332066061898, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
-        type: 3}
-      propertyPath: Enemy
-      value: 
-      objectReference: {fileID: 4340959142772541425, guid: 7bf8da7022fa14386baa3d17d3fe9002,
-        type: 3}
     - target: {fileID: 322525332066061899, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4186,21 +4180,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Tower
-      objectReference: {fileID: 0}
-    - target: {fileID: 712542290703963521, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
-        type: 3}
-      propertyPath: m_RenderMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 712542290703963521, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-    - target: {fileID: 4164646985444477536, guid: 35d9cb88c359341e5bd4cff1599bf6e5,
-        type: 3}
-      propertyPath: CollisionModule.type
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d9cb88c359341e5bd4cff1599bf6e5, type: 3}
