@@ -705,7 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a5b322c280b4ff1a1238af2e0abbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPrefab: {fileID: 4912185505896308849, guid: 7bf8da7022fa14386baa3d17d3fe9002,
+  EnemyPrefab: {fileID: 114941686308246830, guid: 04f81ff9814844ccfa08226f8d46a3f4,
     type: 3}
   Parent: {fileID: 311874570}
   SpawnRate: 4
