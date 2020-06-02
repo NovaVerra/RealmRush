@@ -8,6 +8,7 @@ public class Tower : MonoBehaviour
 	[SerializeField] Transform	TurretTop;
 	[SerializeField] float		Range = 20.0f;
 	[SerializeField] GameObject	Bullet;
+	[SerializeField] public Waypoint	BaseWaypoint;
 
 	/** State */
 	Transform	Enemy;
