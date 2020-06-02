@@ -22,9 +22,10 @@ public class Enemy : MonoBehaviour
 		}
 		else
 		{
-			Destroy(gameObject);
 			var VFX = Instantiate(P_OnDeath, transform.position, Quaternion.identity);
 			VFX.Play();
+			Destroy(VFX.gameObject, VFX.main.duration);
+			Destroy(gameObject);
 		}
 	}
 }
