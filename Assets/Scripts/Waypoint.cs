@@ -36,7 +36,7 @@ public class Waypoint : MonoBehaviour
 		{
 			if (b_IsPlaceable)
 			{
-				FindObjectOfType<TowerFactory>().SpawnTower(this);
+				FindObjectOfType<TowerFactory>().PlaceTower(this);
 				b_IsPlaceable = false;
 			}
 			else

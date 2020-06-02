@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class TowerFactory : MonoBehaviour
 {
-	[SerializeField] Tower	TowerPrefab;
-	[SerializeField] int	TowerLimit = 5;
-	int						CurrentTowerCount = 0;
+	/** Parameters */
+	[SerializeField] Transform	Parent;
+	[SerializeField] Tower		TowerPrefab;
+	[SerializeField] int		TowerLimit = 5;
 
-	public void	SpawnTower(Waypoint Waypoint)
+	/** State */
+	Queue<Tower>			TowerQueue = new Queue<Tower>();
+
+	public void	PlaceTower(Waypoint Waypoint)
 	{
-		if (CurrentTowerCount < TowerLimit)
+		print(TowerQueue.Count);
+		if (TowerQueue.Count < TowerLimit)
 		{
-			Instantiate(TowerPrefab, Waypoint.transform.position, Quaternion.identity);
-			Waypoint.b_IsPlaceable = false;
-			CurrentTowerCount++;
+			InstantiateNewTower(Waypoint);
 		}
 		else
 		{
-			print("Too many towers");
+			MoveExistingTower(Waypoint);
 		}
+	}
+
+	void	InstantiateNewTower(Waypoint Waypoint)
+	{
+		// Instantiate and Queue new towers
+		var TowerInstance = Instantiate(TowerPrefab, Waypoint.transform.position, Quaternion.identity);
+		TowerInstance.transform.parent = Parent;
+		TowerQueue.Enqueue(TowerInstance);
+		// Modify state
+		Waypoint.b_IsPlaceable = false;
+	}
+
+	void	MoveExistingTower(Waypoint Waypoint)
+	{
+		var TowerToMove = TowerQueue.Dequeue();
+		TowerQueue.Enqueue(TowerToMove);
 	}
 }
