@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-	[SerializeField] int	HitPoint = 25;
+	[SerializeField] int			HitPoint = 25;
 	[SerializeField] ParticleSystem	P_OnHit;
 	[SerializeField] ParticleSystem	P_OnDeath;
 

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+	[Range(0.25f, 2.0f)]
+	[SerializeField] float	MoveSpeed = 1.0f;
+	[SerializeField] ParticleSystem	GoalParticle;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -16,7 +20,16 @@ public class EnemyMovement : MonoBehaviour
 		foreach (Waypoint Coordinate in Path)
 		{
 			transform.position = Coordinate.transform.position;
-			yield return new WaitForSeconds(1.0f);
+			yield return new WaitForSeconds(MoveSpeed);
 		}
+		SelfDestruct();
+	}
+
+	void	SelfDestruct()
+	{
+		var VFX = Instantiate(GoalParticle, transform.position, Quaternion.identity);
+		VFX.Play();
+		Destroy(VFX.gameObject, VFX.main.duration);
+		Destroy(gameObject);
 	}
 }
