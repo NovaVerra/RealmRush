@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 	[Range(0.25f, 2.0f)]
-	[SerializeField] float	MoveSpeed = 1.0f;
+	[SerializeField] float			MoveSpeed = 1.0f;
 	[SerializeField] ParticleSystem	GoalParticle;
 
 	// Start is called before the first frame update
