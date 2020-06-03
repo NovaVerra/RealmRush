@@ -12,6 +12,7 @@ public class EnemySpawnHandler : MonoBehaviour
 	[SerializeField] float			SpawnRate = 4.0f;
 	int								EnemyCount = 0;
 	[SerializeField] Text			EnemyCountText;
+	[SerializeField] AudioClip		A_EnemySpawn;
 
 	// Start is called before the first frame update
 	void Start()
@@ -23,11 +24,17 @@ public class EnemySpawnHandler : MonoBehaviour
 	{
 		while (true)
 		{
-			EnemyCount++;
-			EnemyCountText.text = EnemyCount.ToString();
+			GetComponent<AudioSource>().PlayOneShot(A_EnemySpawn);
+			AddScore();
 			EnemyMovement EnemyInstance = Instantiate(EnemyPrefab, transform.position, Quaternion.identity);
 			EnemyInstance.transform.parent = Parent;
 			yield return new WaitForSeconds(SpawnRate);
 		}
+	}
+
+	void	AddScore()
+	{
+		EnemyCount++;
+		EnemyCountText.text = EnemyCount.ToString();
 	}
 }

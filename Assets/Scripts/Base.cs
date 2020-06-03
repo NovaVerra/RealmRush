@@ -7,6 +7,7 @@ public class Base : MonoBehaviour
 {
 	[SerializeField] int	HealthPoint = 10;
 	[SerializeField] Text	BaseHealth;
+	[SerializeField] AudioClip	A_EnemyHitBase;
 
 	void	Update()
 	{
@@ -17,6 +18,7 @@ public class Base : MonoBehaviour
 	{
 		if (HealthPoint > 0)
 		{
+			GetComponent<AudioSource>().PlayOneShot(A_EnemyHitBase);
 			HealthPoint--;
 		}
 		else
